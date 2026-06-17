@@ -14,7 +14,6 @@ Storage:
 Network: Intel I219‑LM (1 Gbps)
 OS: Ubuntu 24.04.4 LTS
 Kernel: 6.8.0‑111
-IP: 192.168.0.178
 Role: Kubernetes control‑plane, runs critical system pods
 Container Runtime: containerd 2.1.5
 
@@ -29,7 +28,6 @@ Storage:
 Network: Atheros AR8161 (1 Gbps)
 OS: Ubuntu 24.04.4 LTS
 Kernel: 6.8.0‑110
-IP: 192.168.0.179
 Role: Primary workload node (media, cloud, DNS, ingress, databases)
 Container Runtime: containerd 2.1.5
 
@@ -42,7 +40,6 @@ Storage:
 Network: Gigabit Ethernet (100 Mbps negotiated)
 OS: Ubuntu 24.04.4 LTS (ARM64)
 Kernel: 6.8.0‑1057‑raspi
-IP: 192.168.0.177
 Role: ARM worker node (media workloads, torrenting, lightweight services)
 Container Runtime: containerd 2.1.5
 
@@ -51,7 +48,7 @@ A flat home network with Kubernetes overlay networking and MetalLB for bare‑me
 
 LAN
 Subnet: 192.168.0.0/24
-Gateway: 192.168.0.7
+Gateway: 192.168.0.x
 DNS: systemd‑resolved (127.0.0.53)
 DHCP: Router‑managed (Pi node receives secondary DHCP IP)
 Kubernetes Pod Networking (Flannel VXLAN)
@@ -71,9 +68,9 @@ This provides a stable overlay network across mixed hardware.
 
 Load Balancing (MetalLB)
 MetalLB assigns real LAN IPs to services:
-Traefik	192.168.0.80
-AdGuard	192.168.0.85 / Home DNS filteration
-AdGuard‑2	192.168.0.86 / Backup DNS instance on a different node
+Traefik	192.168.0.8x
+AdGuard	192.168.0.8y / Home DNS filteration
+AdGuard‑2	192.168.0.8z / Backup DNS instance on a different node
 
 This allows direct access to services without NodePorts.
 
@@ -88,25 +85,25 @@ Control Plane: 1 node
 Workers: 2 nodes (x86_64 + ARM64)
 
 Core System Components
-Traefik — Ingress controller
-MetalLB — Bare‑metal load balancer
-Cert‑Manager — Automatic TLS
+Traefik, Ingress controller
+MetalLB, Bare‑metal load balancer
+Cert‑Manager, Automatic TLS
 CoreDNS — Cluster DNS
-Metrics Server — Resource metrics
-Local Path Provisioner — Default storage class
+Metrics Server, Resource metrics
+Local Path Provisioner, Default storage class
 
 Ingress Routing
 All apps are exposed through Traefik using my domain:
 
 Examples:
-ha.mustafa.ca
-watch.mustafa.ca
-drive.mustafa.ca
-lens.mustafa.ca
-plex.mustafa.ca
-pulse.mustafa.ca
+ha.xxx.ca
+watch.xxx.ca
+drive.xxx.ca
+lens.xxx.ca
+plex.xxx.ca
+pulse.xxx.ca
 
-Traefik LoadBalancer IP: 192.168.0.80
+Traefik LoadBalancer IP: 192.168.0.8x
 
 ## Storage & Backups
 A hybrid storage model combining local PVs, NFS‑backed RWX volumes, and Velero backups.
@@ -137,100 +134,6 @@ Downloads (500 GiB)
 
 These allow multi‑pod access and large storage capacity.
 
-3. Application‑specific PVs
-
-AdGuard config/work
-Immich storage
-
-## Backups (Velero)
-Velero deployment + node agents
-Weekly metadata backup (30 0 * * 0)
-
-## Monitoring & Observability
-
-Lightweight monitoring only — intentionally minimal.
-
-### Uptime Kuma
-StatefulSet
-
-Runs on control plane
-
-Tracks service uptime and HTTP endpoints
-
-
-### cupdate
-
-Custom update‑checker service
-
-Runs on worker node 1
-
-
-## Services & Applications
-
-All workloads grouped by namespace and purpose.
-
-Networking & DNS
-AdGuard Home (two deployments)
-
-DNS filtering + DHCP replacement
-
-Home Automation
-Home Assistant
-
-Exposed via Traefik (ha.mustafa.ca)
-
-Media & Downloads
-Jellyfin — Media server
-
-Plex — Media server
-
-qBittorrent + Gluetun — Torrenting behind VPN
-
-Metube — YouTube downloader
-
-Personal Cloud
-Nextcloud — File sync + calendar + contacts
-
-Photo Management
-Immich — Full stack (server, ML, Redis, Postgres)
-
-Databases
-Postgres (StatefulSet)
-
-Adminer (ImagePullBackOff)
-
-Backups
-Velero + node agents
-
-MinIO (failing image pull)
-
-Monitoring
-Uptime Kuma
-
-cupdate
-
-## Experiments & Learning
-This lab is used for hands‑on learning with:
-
-Kubernetes operations
-
-Multi‑architecture scheduling
-
-Ingress routing & TLS
-
-Persistent storage (local + NFS)
-
-MetalLB load balancing
-
-Home automation
-
-Media streaming
-
-Backup workflows
-
-Lightweight monitoring
-
-Running real apps in a cluster
 
 ## Summary
 This home lab demonstrates practical experience with:
