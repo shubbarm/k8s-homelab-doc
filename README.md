@@ -1,11 +1,11 @@
 # Home Lab Documentation
 A complete, production‑style overview of my Kubernetes‑based home lab environment.
-This documentation covers hardware, networking, cluster architecture, storage, applications, ingress, and operational patterns — all based on the live system.
+This documentation covers hardware, networking, cluster architecture, storage, applications, ingress, and operational patterns , all based on the live system.
 
 ## Hardware & Nodes
 My cluster runs on three physical machines with mixed CPU architectures, storage tiers, and performance profiles. This diversity allows me to test scheduling, affinity rules, and multi‑arch container workloads.
 
-### Control Plane — box178
+### Control Plane , box178
 Model: HP EliteDesk 800 G3 DM
 CPU: Intel Core i5‑6500 (4 cores, 3.6 GHz boost)
 RAM: 8 GB DDR4
@@ -17,7 +17,7 @@ Kernel: 6.8.0‑111
 Role: Kubernetes control‑plane, runs critical system pods
 Container Runtime: containerd 2.1.5
 
-### Worker Node 1 — desktopbox
+### Worker Node 1 , desktopbox
 Model: HP h8‑1419
 CPU: Intel Core i7‑3770 (4 cores / 8 threads, 3.9 GHz boost)
 RAM: 12 GB DDR3
@@ -31,7 +31,7 @@ Kernel: 6.8.0‑110
 Role: Primary workload node (media, cloud, DNS, ingress, databases)
 Container Runtime: containerd 2.1.5
 
-### Worker Node 2 — pibox
+### Worker Node 2 , pibox
 Model: Raspberry Pi 400
 CPU: Broadcom BCM2711 (Cortex‑A72, quad‑core, 1.8 GHz)
 RAM: 4 GB LPDDR4
@@ -88,7 +88,7 @@ Core System Components
 Traefik, Ingress controller
 MetalLB, Bare‑metal load balancer
 Cert‑Manager, Automatic TLS
-CoreDNS — Cluster DNS
+CoreDNS , Cluster DNS
 Metrics Server, Resource metrics
 Local Path Provisioner, Default storage class
 
