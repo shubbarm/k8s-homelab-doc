@@ -157,9 +157,3 @@ Backup tooling
 Multi‑node, multi‑architecture clusters
 
 A compact, real‑world environment designed for learning, experimentation, and self‑hosting.
-
-
-
-A “Future Improvements” section
-
-Just tell me which one you want next.
